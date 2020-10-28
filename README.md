@@ -1,6 +1,7 @@
 # chat_app_flutter
 
-A new Flutter application.
+A simple chat app.
+Will be updated gradually.
 
 ## Getting Started
 
