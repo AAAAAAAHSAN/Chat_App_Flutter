@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
                   hintText: "password"
               ),
             ),
-            SizedBox(height: 8,),
+            SizedBox(height: 16,),
             Container(
               alignment: Alignment.centerRight,
               child: Container(
@@ -34,8 +34,55 @@ class _SignInState extends State<SignIn> {
                 ),
                 ),
               ),
-            )
 
+            ),
+            SizedBox(height: 16,),
+            Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xffD800A0),
+                    const Color(0xffA300BF)
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(25)
+              ),
+              child: Text("Sign In", style: TextStyle(
+                fontSize: 16,
+                color: Colors.white
+              ),),
+            ),
+            SizedBox(height: 8,),
+            Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                // we can also give just color without gradient
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color(0xff00ff1f),
+                      const Color(0xff008e10)
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(25)
+              ),
+              child: Text("Sign In with Google", style: TextStyle(
+                  fontSize: 16,
+                color: Colors.white
+              ),),
+            ),
+            SizedBox(height: 16,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have an account? "),
+                Text("Register now !",style: TextStyle(color: Colors.blue),),
+              ],
+            )
           ],
         ),
       ),
