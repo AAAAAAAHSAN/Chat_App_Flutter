@@ -1,3 +1,4 @@
+import 'package:chat_app_flutter/services/auth.dart';
 import 'package:chat_app_flutter/views/signin.dart';
 import 'package:chat_app_flutter/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
+  bool isLoading = false;
+
+  AuthMethods authMethods = new AuthMethods();
   final formKey = GlobalKey<FormState>();
   TextEditingController userNameTextEditingController = new TextEditingController();
   TextEditingController emailTextEditingController = new TextEditingController();
@@ -17,14 +21,22 @@ class _SignUpState extends State<SignUp> {
   signMeUp(){
     if(formKey.currentState.validate())
       {
-
+        setState(() {
+          isLoading =true;
+        });
+        authMethods.signInWithEmailAndPassword(emailTextEditingController.text,
+            passwordTextEditingController.text).then((value) {
+              print("$value");
+        });
       }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarMain(context),
-      body: SingleChildScrollView(
+      body: isLoading ? Container(
+        child: Center(child: CircularProgressIndicator()),
+      ): SingleChildScrollView(
         child: Container(
           alignment: Alignment.bottomCenter,
 
@@ -38,7 +50,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       TextFormField(
                         validator: (val){
-                          return "this will not work";
+                          return val.isEmpty || val.length< 4 ? "Please provide a valid username": null;
                         },
                         controller: userNameTextEditingController,
                         decoration: InputDecoration(
@@ -46,12 +58,20 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                       TextFormField(
+                        validator: (val){
+                          return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ?
+                          null : "Enter a valid email";
+                        },
                         controller: emailTextEditingController,
                         decoration: InputDecoration(
                             hintText: "email"
                         ),
                       ),
                       TextFormField(
+                        obscureText: true,
+                        validator:  (val){
+                          return val.length < 6 ? "Enter Password 6+ characters" : null;
+                        },
                         controller: passwordTextEditingController,
                         decoration: InputDecoration(
                             hintText: "password"
