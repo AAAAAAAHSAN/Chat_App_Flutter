@@ -1,6 +1,8 @@
 import 'package:chat_app_flutter/services/auth.dart';
+import 'package:chat_app_flutter/views/chatRoomScreen.dart';
 import 'package:chat_app_flutter/views/signin.dart';
 import 'package:chat_app_flutter/widgets/widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -18,15 +20,22 @@ class _SignUpState extends State<SignUp> {
   TextEditingController emailTextEditingController = new TextEditingController();
   TextEditingController passwordTextEditingController = new TextEditingController();
 
+  testMethod()
+  {
+
+  }
   signMeUp(){
     if(formKey.currentState.validate())
       {
         setState(() {
           isLoading =true;
         });
-        authMethods.signInWithEmailAndPassword(emailTextEditingController.text,
+        authMethods.signUpWithEmailAndPassword(emailTextEditingController.text,
             passwordTextEditingController.text).then((value) {
-              print("$value");
+              print("${value.uid}");
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context)=> ChatRoom(),
+              ));
         });
       }
   }
@@ -116,24 +125,29 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 SizedBox(height: 8,),
-                Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  decoration: BoxDecoration(
-                    // we can also give just color without gradient
-                      gradient: LinearGradient(
-                        colors: [
-                          const Color(0xff00ff1f),
-                          const Color(0xff008e10)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(25)
+                GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      // we can also give just color without gradient
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xff00ff1f),
+                            const Color(0xff008e10)
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(25)
+                    ),
+                    child: Text("Sign Up with Google", style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white
+                    ),),
                   ),
-                  child: Text("Sign Up with Google", style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white
-                  ),),
                 ),
                 SizedBox(height: 16,),
                 InkWell(
