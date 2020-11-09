@@ -12,6 +12,17 @@ class _ChatRoomState extends State<ChatRoom> {
     return Scaffold(
       appBar: AppBar(
         title: Text("new title"),
+        actions: [
+          GestureDetector(
+            onTap: (){
+
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(Icons.exit_to_app),
+            ),
+          )
+        ],
       ),
     );
   }
