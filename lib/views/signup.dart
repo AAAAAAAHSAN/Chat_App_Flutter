@@ -6,6 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+
+  final Function toggle;
+  SignUp(this.toggle);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -32,7 +36,7 @@ class _SignUpState extends State<SignUp> {
         });
         authMethods.signUpWithEmailAndPassword(emailTextEditingController.text,
             passwordTextEditingController.text).then((value) {
-              print("${value.uid}");
+              //print("${value.uid}");
               Navigator.pushReplacement(context, MaterialPageRoute(
                 builder: (context)=> ChatRoom(),
               ));
@@ -150,17 +154,19 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 SizedBox(height: 16,),
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> new SignIn()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Already have an account? "),
-                      Text("Sign In Now !",style: TextStyle(color: Colors.blue),),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account? "),
+                    GestureDetector(
+                      onTap: (){
+                        widget.toggle();
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Sign In Now !",style: TextStyle(color: Colors.blue),)),
+                    ),
+                  ],
                 )
               ],
             ),

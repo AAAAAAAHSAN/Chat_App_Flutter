@@ -3,6 +3,10 @@ import 'package:chat_app_flutter/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
+
+  final Function toggle;
+  SignIn(this.toggle);
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -87,18 +91,20 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 SizedBox(height: 16,),
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> new SignUp()));
-                  },
-                  child: Row(
-
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't have an account? "),
-                      Text("Register now !",style: TextStyle(color: Colors.blue),),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't have an account? "),
+                    GestureDetector(
+                      onTap: (){
+                        widget.toggle();
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          child: Text("Register now!",style: TextStyle(color: Colors.blue),)
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 50,)
               ],
