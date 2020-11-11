@@ -11,6 +11,44 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarMain(context),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "search username",
+
+                        ),
+                      )
+                  ),
+                  Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors:[
+                            const Color(0xffD800A0),
+                            const Color(0xffA3002F)
+                          ]
+                        ),
+                        borderRadius: BorderRadius.circular(40)
+                      ),
+                      //padding: EdgeInsets.all(4),
+                      child: Icon(
+                          Icons.search,
+                      color: Colors.white,) //Image.asset("assets/images/search_white.png")
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
