@@ -1,4 +1,5 @@
 import 'package:chat_app_flutter/services/auth.dart';
+import 'package:chat_app_flutter/services/database.dart';
 import 'package:chat_app_flutter/views/chatRoomScreen.dart';
 import 'package:chat_app_flutter/views/signin.dart';
 import 'package:chat_app_flutter/widgets/widget.dart';
@@ -19,6 +20,8 @@ class _SignUpState extends State<SignUp> {
   bool isLoading = false;
 
   AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+
   final formKey = GlobalKey<FormState>();
   TextEditingController userNameTextEditingController = new TextEditingController();
   TextEditingController emailTextEditingController = new TextEditingController();
@@ -31,12 +34,20 @@ class _SignUpState extends State<SignUp> {
   signMeUp(){
     if(formKey.currentState.validate())
       {
+        Map<String, String> userInfoMap = {
+          "name": userNameTextEditingController.text,
+          "email" : emailTextEditingController.text,
+        };
+
         setState(() {
           isLoading =true;
         });
         authMethods.signUpWithEmailAndPassword(emailTextEditingController.text,
             passwordTextEditingController.text).then((value) {
               //print("${value.uid}");
+
+
+          databaseMethods.uploadUserInfo(userInfoMap);
               Navigator.pushReplacement(context, MaterialPageRoute(
                 builder: (context)=> ChatRoom(),
               ));
