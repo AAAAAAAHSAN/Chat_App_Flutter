@@ -14,29 +14,33 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchTextEditingController = new TextEditingController();
 
   QuerySnapshot searchSnapshot;
-  initiateSearch(){
-    databaseMethods.getUserByUsername(searchTextEditingController.text).then((value){
+
+  initiateSearch() {
+    databaseMethods.getUserByUsername(searchTextEditingController.text).then((
+        value) {
       setState(() {
-        searchSnapshot= value;
+        searchSnapshot = value;
       });
     });
-
   }
-  Widget searchList(){
+
+  Widget searchList() {
     return searchSnapshot != null ? ListView.builder(
         itemCount: searchSnapshot.documents.length,
         shrinkWrap: true,
-        itemBuilder: (context, index){
-        return SearchTile(
-          userName: searchSnapshot.documents[index]["name"],
-          userEmail: searchSnapshot.documents[index]['email'],
-        );
-    }) : Container();
+        itemBuilder: (context, index) {
+          return SearchTile(
+            userName: searchSnapshot.documents[index]["name"],
+            userEmail: searchSnapshot.documents[index]['email'],
+          );
+        }) : Container();
   }
+
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,25 +62,26 @@ class _SearchScreenState extends State<SearchScreen> {
                       )
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       initiateSearch();
                     },
                     child: Container(
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors:[
-                              const Color(0xffD800A0),
-                              const Color(0xffA3002F)
-                            ]
-                          ),
-                          borderRadius: BorderRadius.circular(40)
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xffD800A0),
+                                  const Color(0xffA3002F)
+                                ]
+                            ),
+                            borderRadius: BorderRadius.circular(40)
                         ),
                         //padding: EdgeInsets.all(4),
                         child: Icon(
-                            Icons.search,
-                        color: Colors.white,) //Image.asset("assets/images/search_white.png")
+                          Icons.search,
+                          color: Colors
+                              .white,) //Image.asset("assets/images/search_white.png")
                     ),
                   )
                 ],
@@ -93,9 +98,11 @@ class _SearchScreenState extends State<SearchScreen> {
 class SearchTile extends StatelessWidget {
   final String userName;
   final String userEmail;
+
   SearchTile({
-    this.userName,this.userEmail
-});
+    this.userName, this.userEmail
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,13 +118,13 @@ class SearchTile extends StatelessWidget {
           ),
           Spacer(),
           GestureDetector(
-            onTap: (){
+            onTap: () {
 
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(12)
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(12)
               ),
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text("Message"),
